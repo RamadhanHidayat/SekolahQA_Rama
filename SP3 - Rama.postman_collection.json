@@ -1,0 +1,2950 @@
+{
+	"info": {
+		"_postman_id": "b7fb17d2-49f1-45ef-82ea-0bd7683e2d0f",
+		"name": "SP3 - Rama",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Generate Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Auto generate token\", function()\r",
+									"    {\r",
+									"        pm.environment.set(\"token\", jsonData.access_token);\r",
+									"    })\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "client_id",
+									"value": "ramatest",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "testingrama",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}oauth/issueToken",
+							"host": [
+								"{{base_url}}oauth"
+							],
+							"path": [
+								"issueToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "TC-01 get Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}api/v1/user",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 User Login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Bitnami.12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "s3Kol4HQA!*",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 User Login Wrong Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "abcd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "s3Kol4HQA!*",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03 User Login wrong Username",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "abcd",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Bitnami.12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "s3Kol4HQA!*",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Get Organization Information",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/organization",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organization"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attendance",
+			"item": [
+				{
+					"name": "TC-01 Punch In",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Timezone",
+									"value": "Europe",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "A",
+									"type": "text"
+								},
+								{
+									"key": "datetime",
+									"value": "2022-01-21 00:01",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/punch-in",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"punch-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Punch In invalid data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Timezone",
+									"value": "Europe",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "A",
+									"type": "text"
+								},
+								{
+									"key": "datetime",
+									"value": "2022-01-21 00:01",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/punch-in",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"punch-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Punch Out",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Timezone",
+									"value": "Europe",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "ra",
+									"type": "text"
+								},
+								{
+									"key": "datetime",
+									"value": "2005-12-30 01:02",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/punch-out",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"punch-out"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Punch Out invalid data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Timezone",
+									"value": "Europe",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "ra",
+									"type": "text"
+								},
+								{
+									"key": "datetime",
+									"value": "2005-12-30 01:02",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/punch-out",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"punch-out"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "TC-01 Save Employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstName",
+									"value": "Rama",
+									"type": "text"
+								},
+								{
+									"key": "middleName",
+									"value": "dhan",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "hidayat",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "231414",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Save Employee \"Already Exist\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstName",
+									"value": "Rama",
+									"type": "text"
+								},
+								{
+									"key": "middleName",
+									"value": "dhan",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "hidayat",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "9999",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/84",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"84"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Employee Detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Employee Detail That Doesn't exist",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1231241351"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Update Employee Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Id",
+									"value": "0140",
+									"type": "text"
+								},
+								{
+									"key": "FirstName",
+									"value": "Rama",
+									"type": "text"
+								},
+								{
+									"key": "MiddleName",
+									"value": "dhan",
+									"type": "text"
+								},
+								{
+									"key": "LastName",
+									"value": "hidayat",
+									"type": "text"
+								},
+								{
+									"key": "Code",
+									"value": "0140",
+									"type": "text"
+								},
+								{
+									"key": "Dob",
+									"value": "2002-05-15",
+									"type": "text"
+								},
+								{
+									"key": "LicenseNumber",
+									"value": "9999",
+									"type": "text"
+								},
+								{
+									"key": "LicenseNumberExpDate",
+									"value": "2022-01-31",
+									"type": "text"
+								},
+								{
+									"key": "MaritalStatus",
+									"value": "Single",
+									"type": "text"
+								},
+								{
+									"key": "Gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "OtherId",
+									"value": "0140",
+									"type": "text"
+								},
+								{
+									"key": "Nationality",
+									"value": "Indonesian",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Update Employee Detail \"Invalid Nation\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Id",
+									"value": "0140",
+									"type": "text"
+								},
+								{
+									"key": "FirstName",
+									"value": "Rama",
+									"type": "text"
+								},
+								{
+									"key": "MiddleName",
+									"value": "dhan",
+									"type": "text"
+								},
+								{
+									"key": "LastName",
+									"value": "hidayat",
+									"type": "text"
+								},
+								{
+									"key": "Code",
+									"value": "0140",
+									"type": "text"
+								},
+								{
+									"key": "Dob",
+									"value": "2002-05-15",
+									"type": "text"
+								},
+								{
+									"key": "LicenseNumber",
+									"value": "9999",
+									"type": "text"
+								},
+								{
+									"key": "LicenseNumberExpDate",
+									"value": "2022-01-31",
+									"type": "text"
+								},
+								{
+									"key": "MaritalStatus",
+									"value": "Single",
+									"type": "text"
+								},
+								{
+									"key": "Gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "OtherId",
+									"value": "0140",
+									"type": "text"
+								},
+								{
+									"key": "nationality",
+									"value": "asdad",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03 Update Employee Detail \"Invalid Gender\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "84",
+									"type": "text"
+								},
+								{
+									"key": "firstName",
+									"value": "Rama",
+									"type": "text"
+								},
+								{
+									"key": "MiddleName",
+									"value": "dhan",
+									"type": "text"
+								},
+								{
+									"key": "LastName",
+									"value": "hidayat",
+									"type": "text"
+								},
+								{
+									"key": "Code",
+									"value": "0140",
+									"type": "text"
+								},
+								{
+									"key": "Dob",
+									"value": "2002-05-15",
+									"type": "text"
+								},
+								{
+									"key": "LicenseNumber",
+									"value": "9999",
+									"type": "text"
+								},
+								{
+									"key": "LicenseNumberExpDate",
+									"value": "2002-05-30",
+									"type": "text"
+								},
+								{
+									"key": "MaritalStatus",
+									"value": "Single",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "aa",
+									"type": "text"
+								},
+								{
+									"key": "OtherId",
+									"value": "0140",
+									"type": "text"
+								},
+								{
+									"key": "Nationality",
+									"value": "Indonesian",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "84"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Employee Search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/search",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Rama dhan hidayat",
+									"disabled": true
+								},
+								{
+									"key": "code",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "supervisor",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "jobtitle",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "unit",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "dob",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Employee Search \"Not Exist\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/search?name=Nooo21124",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Nooo21124"
+								},
+								{
+									"key": "code",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "supervisor",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "jobtitle",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "unit",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "dob",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Save Employee Contact Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet1",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet2",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "jawa",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "zip",
+									"value": "zip",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "homeTelephone",
+									"value": "13252525",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "1316262626",
+									"type": "text"
+								},
+								{
+									"key": "workTelephone",
+									"value": "12642462626",
+									"type": "text"
+								},
+								{
+									"key": "workEmail",
+									"value": "a@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "otherEmail",
+									"value": "a1@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/contact-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"contact-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Save Employee Contact Detail \"invalid WorkTelp\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet1",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet2",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "jawa",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "zip",
+									"value": "zip",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "homeTelephone",
+									"value": "13252525",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "1316262626",
+									"type": "text"
+								},
+								{
+									"key": "workTelephone",
+									"value": "-",
+									"type": "text"
+								},
+								{
+									"key": "workEmail",
+									"value": "a@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "otherEmail",
+									"value": "a1@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/contact-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"contact-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03 Save Employee Contact Detail \"Same Email\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet1",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet2",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "jawa",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "zip",
+									"value": "zip",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "homeTelephone",
+									"value": "13252525",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "1316262626",
+									"type": "text"
+								},
+								{
+									"key": "workTelephone",
+									"value": "12642462626",
+									"type": "text"
+								},
+								{
+									"key": "workEmail",
+									"value": "a@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "otherEmail",
+									"value": "a@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/contact-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"contact-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Update Employee Contact Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet1",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet2",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "jawa",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "zip",
+									"value": "zip",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "homeTelephone",
+									"value": "13252525",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "1316262626",
+									"type": "text"
+								},
+								{
+									"key": "workTelephone",
+									"value": "12642462626",
+									"type": "text"
+								},
+								{
+									"key": "workEmail",
+									"value": "a@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "otherEmail",
+									"value": "a1@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/contact-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"contact-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Update Employee Contact Detail \"Invalid workTelephone\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet1",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet2",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "jawa",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "zip",
+									"value": "zip",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "homeTelephone",
+									"value": "13252525",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "1316262626",
+									"type": "text"
+								},
+								{
+									"key": "workTelephone",
+									"value": "asfa",
+									"type": "text"
+								},
+								{
+									"key": "workEmail",
+									"value": "a@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "otherEmail",
+									"value": "a1@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/contact-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"contact-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03 Update Employee Contact Detail \"Invalid Email\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet1",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet2",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "jawa",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "zip",
+									"value": "zip",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "homeTelephone",
+									"value": "13252525",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "1316262626",
+									"type": "text"
+								},
+								{
+									"key": "workTelephone",
+									"value": "12642462626",
+									"type": "text"
+								},
+								{
+									"key": "workEmail",
+									"value": "a@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "otherEmail",
+									"value": "a1@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/contact-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"contact-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-04 Update Employee Contact Detail \"Invalid Mobile\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet1",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet2",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "jawa",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "indo",
+									"type": "text"
+								},
+								{
+									"key": "zip",
+									"value": "zip",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "indonesia",
+									"type": "text"
+								},
+								{
+									"key": "homeTelephone",
+									"value": "13252525",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "a",
+									"type": "text"
+								},
+								{
+									"key": "workTelephone",
+									"value": "2124141414",
+									"type": "text"
+								},
+								{
+									"key": "workEmail",
+									"value": "a@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "otherEmail",
+									"value": "a1@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/contact-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"contact-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Employee Dependents",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/dependent",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"dependent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Employee Dependents \"Not Exist\"",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/dependent",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"dependent"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2141414"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Delete Employee Dependents",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "sequenceNumber",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/dependent",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"dependent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Delete Employee Dependents \"Not Exist\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "sequenceNumber",
+									"value": "7",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/dependent",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"dependent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Update Employee Dependents \"Failed\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "ielationship",
+									"value": "Child",
+									"type": "text"
+								},
+								{
+									"key": "dob",
+									"value": "2022-01-19",
+									"type": "text"
+								},
+								{
+									"key": "sequenceNumber",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/3/dependent",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"3",
+								"dependent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Save Employee Dependent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "abcd",
+									"type": "text"
+								},
+								{
+									"key": "relationship",
+									"value": "Child",
+									"type": "text"
+								},
+								{
+									"key": "dob",
+									"value": "2022-01-19",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/dependent",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"dependent"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Save Employee Dependent \"invalid DOB\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "abcd",
+									"type": "text"
+								},
+								{
+									"key": "relationship",
+									"value": "Child",
+									"type": "text"
+								},
+								{
+									"key": "dob",
+									"value": "iafas",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/dependent",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"dependent"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "84"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Employee Job Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/job-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"job-detail"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Save Employee Job Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Category",
+									"value": "Sales Workers",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "subunit",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "joinedDate",
+									"value": "2022-01-20",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2022-01-20",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "2022-01-21",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/job-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"job-detail"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Update Employee Job Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "subunit",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "joinedDate",
+									"value": "2022-01-20",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2022-01-20",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "2022-01-21",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/job-detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"job-detail"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Get Employee Events",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/event",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Employee Work Experience",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/work-experience",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"work-experience"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03 Employee Work Experience \"Not Exist\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/work-experience",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"work-experience"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3151515"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Save Employee Work Experience",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Celestial Being",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "meister",
+									"type": "text"
+								},
+								{
+									"key": "fromDate",
+									"value": "2022-01-20",
+									"type": "text"
+								},
+								{
+									"key": "toDate",
+									"value": "2022-01-27",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/work-experience",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"work-experience"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Save Employee Work Experience \"Invalid Date\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Celestial Being",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "meister",
+									"type": "text"
+								},
+								{
+									"key": "fromDate",
+									"value": "2022-01-20",
+									"type": "text"
+								},
+								{
+									"key": "toDate",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/work-experience",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"work-experience"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Update Employee Work Experience",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Celestial Being",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Meister",
+									"type": "text"
+								},
+								{
+									"key": "fromDate",
+									"value": "2022-01-20",
+									"type": "text"
+								},
+								{
+									"key": "toDate",
+									"value": "2022-01-27",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "seqId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/work-experience",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"work-experience"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-01 Delete Employee Work Experience",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "seqId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/work-experience",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"work-experience"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02 Delete Employee Work Experience \"Not Exist\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "seqId",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/work-experience",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"work-experience"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03 Delete Employee Custom Field",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "fieldId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/custom-field",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"custom-field"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-04 Delete Employee Custom Field \"Doesnt Exist\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "84",
+									"type": "text"
+								},
+								{
+									"key": "fieldId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/employee/:id/custom-field",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								":id",
+								"custom-field"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
